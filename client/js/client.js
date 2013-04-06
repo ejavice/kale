@@ -1,7 +1,24 @@
 if (Meteor.isClient) {
+	Handlebars.registerHelper('page', function(input) {
+  		return Session.get("page");
+	});
+
 	Template.content.greeting = function () {
-		return "Welcome to our App.";
+		return "Hello, my name is E. Norm Hiscock. Allow me to introduce my wife, Dixie Normus.";
 	};
+
+	if Session.equals("page", null) {
+		// we are on the Home page
+		Session.set("page", "home");
+	} else if (Session.equals("page", "joinevent")) {
+		// we are on the Join Event page
+	} else if (Session.equals("page", "createevent")) {
+		// we are on the Create Event page
+	} else if (Session.equals("page", "eventspec")) {
+		// we are on the Event Spectator page
+	} else if (Session.equals("page", "eventadmin")) {
+		// we are on the Event Admin page 
+	}
 
 	// Template.hello.events({
 	// 	'click input' : function () {
