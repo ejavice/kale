@@ -1,28 +1,14 @@
 if (Meteor.isClient) {
+	Session.set("page", "home");
 	if (Session.equals("page", null)) {
 		// we are on the Home page for the first time
 		Session.set("page", "home");
 	}
 
-	Handlebars.registerHelper('home', function() {
-		return Session.equals("page", "home");
+	Handlebars.registerHelper('page', function(input) {
+		return Session.get("page")==input;
 	});
 
-	Handlebars.registerHelper('create', function() {
-		return Session.equals("page", "create");
-	});
-
-	Handlebars.registerHelper('join', function() {
-		return Session.equals("page", "join");
-	});
-
-	Handlebars.registerHelper('admin', function() {
-		return Session.equals("page", "admin");
-	});
-
-	Handlebars.registerHelper('spec', function() {
-		return Session.equals("page", "spec");
-	});
 
 
 	// Template.hello.events({
