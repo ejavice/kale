@@ -1,2 +1,20 @@
 <template name="content">
+	<div id="mainContent">
+	{{#if home}}
+		{{> home}}
+	{{/if}}
+	{{#if join}}
+		{{> join}}
+	{{/if}}
+	{{#if createt}}
+		{{> create}}
+	{{/if}}
+	{{#if spec}}
+		{{> spec}}
+	{{/if}}
+
+	{{#if admin}}
+		{{> admin}}
+	{{/if}}
+	</div>
 </template>
