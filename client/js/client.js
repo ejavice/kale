@@ -4,24 +4,24 @@ if (Meteor.isClient) {
 		Session.set("page", "home");
 	}
 
-	Handlebars.registerHelper('ishome', function() {
+	Handlebars.registerHelper('home', function() {
 		return Session.equals("page", "home");
 	});
 
-	Handlebars.registerHelper('iscreateevent', function() {
-		return Session.equals("page", "createevent");
+	Handlebars.registerHelper('create', function() {
+		return Session.equals("page", "create");
 	});
 
-	Handlebars.registerHelper('isjoinevent', function() {
-		return Session.equals("page", "joinevent");
+	Handlebars.registerHelper('join', function() {
+		return Session.equals("page", "join");
 	});
 
-	Handlebars.registerHelper('iseventadmin', function() {
-		return Session.equals("page", "eventadmin");
+	Handlebars.registerHelper('admin', function() {
+		return Session.equals("page", "admin");
 	});
 
-	Handlebars.registerHelper('iseventspec', function() {
-		return Session.equals("page", "eventspec");
+	Handlebars.registerHelper('spec', function() {
+		return Session.equals("page", "spec");
 	});
 
 
