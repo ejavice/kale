@@ -1,13 +1,5 @@
 if (Meteor.isClient) {
-	Handlebars.registerHelper('page', function(input) {
-  		return Session.get("page");
-	});
-
-	Template.content.greeting = function () {
-		return "Hello, my name is E. Norm Hiscock. Allow me to introduce my wife, Dixie Normus.";
-	};
-
-	if Session.equals("page", null) {
+	if (Session.equals("page", null)) {
 		// we are on the Home page
 		Session.set("page", "home");
 	} else if (Session.equals("page", "joinevent")) {
@@ -19,7 +11,9 @@ if (Meteor.isClient) {
 	} else if (Session.equals("page", "eventadmin")) {
 		// we are on the Event Admin page 
 	}
-
+	Handlebars.registerHelper('page', function(input) {
+		return Session.get("page");
+	});
 	// Template.hello.events({
 	// 	'click input' : function () {
 	// 		// template data, if any, is available in 'this'
@@ -27,4 +21,10 @@ if (Meteor.isClient) {
 	// 			console.log("You pressed the button");
 	// 	}
 	// });
+
+
+
+	// Template.content.greeting = function () {
+	// 	return "Hello, my name is E. Norm Hiscock. Allow me to introduce my wife, Dixie Normus.";
+	// };
 }
