@@ -1,19 +1,30 @@
 if (Meteor.isClient) {
 	if (Session.equals("page", null)) {
-		// we are on the Home page
+		// we are on the Home page for the first time
 		Session.set("page", "home");
-	} else if (Session.equals("page", "joinevent")) {
-		// we are on the Join Event page
-	} else if (Session.equals("page", "createevent")) {
-		// we are on the Create Event page
-	} else if (Session.equals("page", "eventspec")) {
-		// we are on the Event Spectator page
-	} else if (Session.equals("page", "eventadmin")) {
-		// we are on the Event Admin page 
 	}
-	Handlebars.registerHelper('page', function(input) {
-		return Session.get("page");
+
+	Handlebars.registerHelper('ishome', function() {
+		return Session.equals("page", "home");
 	});
+
+	Handlebars.registerHelper('iscreateevent', function() {
+		return Session.equals("page", "createevent");
+	});
+
+	Handlebars.registerHelper('isjoinevent', function() {
+		return Session.equals("page", "joinevent");
+	});
+
+	Handlebars.registerHelper('iseventadmin', function() {
+		return Session.equals("page", "eventadmin");
+	});
+
+	Handlebars.registerHelper('iseventspec', function() {
+		return Session.equals("page", "eventspec");
+	});
+
+
 	// Template.hello.events({
 	// 	'click input' : function () {
 	// 		// template data, if any, is available in 'this'
