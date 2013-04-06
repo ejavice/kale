@@ -1,21 +1,21 @@
 <template name="header">
 	<div id="Header">
-		{{#if page "home"}}
+		{{#if ishome}}
 			<h2> Welcome to Kale</h2>
 		{{/if}}
-		{{#if page "joinevent"}}
+		{{#if isjoinevent"}}
 			<img src="backbutton.png" alt="Back" height="20" width="20">
 			<h2> Join an Event </h2>
 		{{/if}}
-		{{#if page "createevent"}}
+		{{#if iscreateevent"}}
 			<img src="backbutton.png" alt="Back" height="20" width="20">
 			<h2> Create an Event </h2>
 		{{/if}}
-		{{#if page "eventspec"}}
+		{{#if page iseventspec"}}
 			<img src="backbutton.png" alt="Back" height="20" width="20">
 			<h2> {{eventname}} </h2>
 		{{/if}}
-		{{#if page "eventadmin"}}
+		{{#if page iseventadmin"}}
 			<img src="backbutton.png" alt="Back" height="20" width="20">
 			<h3> {{eventname}} </h3>
 			<h3> {{eventpass}} </h3>
