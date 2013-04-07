@@ -142,11 +142,12 @@
 			var img_id = event.currentTarget.className;
 			//send email with all questions
 			//change 
-			if (img_id == "endEvent") {
+			if (img_id == "endevent") {
 				Session.set("admin", false);
 				Session.set("page", "home");
-				var event_id = Events.findOne({"_id": Session.get("event")});
-				event_id = event_id.event_id;
+				eventObject = Events.findOne({"_id": Session.get("event")});
+				var event_id = eventObject._id;
+				console.log(event_id);
 				removeevent(event_id);
 			}
 		},
@@ -154,11 +155,12 @@
 			var img_id = event.currentTarget.className;
 			//send email with all questions
 			//change 
-			if (img_id == "endEvent") {
+			if (img_id == "endevent") {
 				Session.set("admin", false);
 				Session.set("page", "home");
-				var event_id = Events.findOne({"_id": Session.get("event")});
-				event_id = event_id.event_id;
+				eventObject = Events.findOne({"_id": Session.get("event")});
+				var event_id = eventObject._id;
+				console.log(event_id);
 				removeevent(event_id);
 			}
 		},
