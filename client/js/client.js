@@ -285,7 +285,7 @@
 		});
 	};
 
-	Template.spec.created = function (){
+	Template.spec.rendered = function (){
 		$(document).ready(function (){
 			var current = Session.get("current");
 			if(current!==undefined ){
