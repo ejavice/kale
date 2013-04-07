@@ -98,7 +98,7 @@ if (Meteor.isClient) {
 
 //JOIN JS
 	Template.join.getAllEvents = function() {
-		return Events.find({}, {fields: {"passcode":0, "eventemail":0}}, {limit: 100});
+		return Events.find({}, {fields: {"eventemail":0}}, {limit: 100});
 	};
 
 	Template.join.events({
@@ -145,8 +145,7 @@ if (Meteor.isClient) {
 
 //HELPER FUNCTIONS
 function createEvent(eventname, eventlocation, eventspeaker, eventemail){
-	var code = Math.floor(Math.random()*90000) + 10000;
-	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail, passcode: code});
+	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail});
 	var eventId = Events.findOne({"name": eventname});
 	eventId = eventId._id;
 	Session.set("admin", true);
@@ -165,13 +164,3 @@ function updatevote(question_id){
 	upvotes = upvotes +1;
 	Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
 }
-
-
-
-
-	// Template.admin.passcode = function (){
-	// 	if(Session.get("admin")){
-	// 		eventObject = Events.findOne({"_id": Session.get("event")});
-	// 		return eventObject.passcode;
-	// 	}
-	// };
