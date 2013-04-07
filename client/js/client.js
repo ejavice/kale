@@ -177,9 +177,7 @@ function makecurrent(question_id) {
 		Questions.update({"_id":question_id},{$set: {current: 1}});
 		Session.set("current", question_id);
 	}else{
-		console.log(previous);
 		previous = previous._id;
-		console.log(previous);
 		Questions.update({"_id":previous},{$set: {current: -1}});
 		Questions.update({"_id":question_id},{$set: {current: 1}});
 		Session.set("current", question_id);
