@@ -1,7 +1,9 @@
 <template name="admin">
 	<div id="adminheader" class="header">
-		<h3>{{eventname}}</h3>
+		<img src="/img/settingsbutton.png" class="backbutton" alt="Back" height="55px" width="55px">
+		<h1 id="admintitle">{{eventname}}</h1>
 	</div>
+
 	<div id="adminquestions">
 		<div id="specQuestions">
 		{{#if getAllQuestions}}
