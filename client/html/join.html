@@ -6,4 +6,12 @@
 		<div id="list">
 		</div>
 	</div>
+
+	<div id="container">
+		{{#if getAllEvents}}
+			{{#each getAllEvents}}
+			<p>{{name}} at {{location}} featuring {{speaker}}</p>
+			{{/each}}
+		{{/if}}
+	</div>
 </template>

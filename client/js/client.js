@@ -44,6 +44,9 @@ if (Meteor.isClient) {
 			return false;
 		}
 	};
+	Template.join.getAllEvents = function() {
+		return Events.find({}, {fields: {"passcode":0, "eventemail":0}}, {limit: 100});
+	}
 
 	Template.home.events({
 		'click li': function (event){
