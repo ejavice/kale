@@ -55,8 +55,7 @@ if (Meteor.isClient) {
 	Template.create.events({
 		'click img': function (event){
 			var img_id = event.currentTarget.className;
-			console.log(img_id);
-			if(img_id=="back"){
+			if(img_id=="backbutton"){
 				Session.set("page","home");
 			}else if(img_id=="eventsubmit"){
 				var eventname = document.getElementById("eventname").value.trim();
@@ -73,6 +72,32 @@ if (Meteor.isClient) {
 			}
 		}
 	});
+
+	Template.admin.eventname = function (){
+		if(Session.get("admin")){
+			eventObject = Events.findOne({"_id": Session.get("event")});
+			return eventObject.name;
+		}
+	};
+
+	Template.admin.passcode = function (){
+		if(Session.get("admin")){
+			eventObject = Events.findOne({"_id": Session.get("event")});
+			return eventObject.passcode;
+		}
+	};
+
+	Template.admin.events({
+		'click img': function (event){
+			var img_id = event.currentTarget.className;
+			//send email with all questions
+			//change 
+			if(img_id=="endEvent"){
+				Session.set("admin", false);
+				Session.set("page", "home");
+			}
+		}
+	});
 }
 // function validateevent(eventname, eventemail){
 // 	return true;
@@ -85,5 +110,5 @@ function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 	eventId = eventId._id;
 	Session.set("admin", true);
 	Session.set("event", eventId);
-	Session.set("page", admin);
+	Session.set("page", "admin");
 }
