@@ -9,9 +9,13 @@
 
 	<div id="container">
 		{{#if getAllEvents}}
+		<ul>
 			{{#each getAllEvents}}
-			<p>{{name}} at {{location}} featuring {{speaker}}</p>
+				<li class="{{_id}}">
+					<h3>{{name}} at {{location}} featuring {{speaker}}</h3>
+				</li>
 			{{/each}}
+		</ul>
 		{{/if}}
 	</div>
 </template>

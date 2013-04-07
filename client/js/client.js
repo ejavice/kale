@@ -65,13 +65,7 @@ if (Meteor.isClient) {
 				var eventlocation = document.getElementById("eventlocation").value.trim();
 				var eventspeaker = document.getElementById("eventspeaker").value.trim();
 				var eventemail = document.getElementById("eventemail").value.trim();
-				//ERROR HANDLING!!!
 				createEvent(eventname, eventlocation, eventspeaker, eventemail);
-				// if(validateevent(eventname, eventemail)){
-				// 	createEvent(eventname, eventlocation, eventspeaker, eventemail);
-				// }else{
-				// 	console.log("Invalid Event");
-				// }
 			}
 		}
 	});
@@ -90,6 +84,11 @@ if (Meteor.isClient) {
 		}
 	};
 
+	Template.spec.name = function (){
+		eventObject = Events.findOne({"_id": Session.get("event")});
+		return eventObject.name;
+	}
+
 	Template.admin.events({
 		'click img': function (event){
 			var img_id = event.currentTarget.className;
@@ -101,11 +100,15 @@ if (Meteor.isClient) {
 			}
 		}
 	});
-}
-// function validateevent(eventname, eventemail){
-// 	return true;
-// }
 
+	Template.join.events({
+		'click li': function (event){
+			var li_id = event.currentTarget.className;
+			Session.set("page","spec");
+			Session.set("event", li_id)
+		}
+	});
+}
 function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 	var code = Math.floor(Math.random()*90000) + 10000;
 	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail, passcode: code});
