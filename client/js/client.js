@@ -74,11 +74,9 @@ if (Meteor.isClient) {
 // HOME JS
 	Template.home.events({
 		'click img': function (event) {
-			var img_id = event.currentTarget.className;
 			Session.set("page", "settings");
 		},
 		'touchstart img': function (event) {
-			var img_id = event.currentTarget.className;
 			Session.set("page", "settings");
 		},
 		'click li': function (event){
