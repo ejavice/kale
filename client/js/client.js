@@ -44,10 +44,43 @@ if (Meteor.isClient) {
 			return false;
 		}
 	};
+	Template.content.settings = function(){
+		if (Session.equals("page","settings")){
+			return true;
+		}else{
+			return false;
+		}
+	};
+
+// SETTINGS JS
+	Template.settings.events({
+		'click img': function (event){
+			var img_id = event.currentTarget.className;
+			if (img_id == "backbutton") {
+				Session.set("page", "home");
+				Session.set("event", undefined);
+			}
+		},
+		'touchstart img': function (event){
+			var img_id = event.currentTarget.className;
+			if (img_id == "backbutton") {
+				Session.set("page", "home");
+				Session.set("event", undefined);
+			}
+		}
+	});
 
 
-//HOME JS
+// HOME JS
 	Template.home.events({
+		'click img': function (event) {
+			var img_id = event.currentTarget.className;
+			Session.set("page", "settings");
+		},
+		'touchstart img': function (event) {
+			var img_id = event.currentTarget.className;
+			Session.set("page", "settings");
+		},
 		'click li': function (event){
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
@@ -175,7 +208,7 @@ if (Meteor.isClient) {
 		'click img': function (event){
 			var img_id = event.currentTarget.className;
 			if (img_id == "backbutton") {
-				Session.set("page", "home");
+				Session.set("page", "join");
 				Session.set("event", undefined);
 			} else if(img_id=="submitquestion"){
 				var question = document.getElementById("newquestion").value.trim();
@@ -188,7 +221,7 @@ if (Meteor.isClient) {
 		'touchstart img': function (event){
 			var img_id = event.currentTarget.className;
 			if(img_id=="backbutton"){
-				Session.set("page", "home");
+				Session.set("page", "join");
 				Session.set("event", undefined);
 			}else if(img_id=="submitquestion"){
 				var question = document.getElementById("newquestion").value.trim();
@@ -236,8 +269,10 @@ function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 }
 
 function submitquestion(text, eventID){
-	Questions.insert({eventId: eventID, question: text, upvotes: 0, current: 0});
-	document.getElementById("newquestion").value = "";
+	if (text !== null && text !== "") {
+		Questions.insert({eventId: eventID, question: text, upvotes: 0, current: 0});
+		document.getElementById("newquestion").value = "";
+	}
 }
 
 function updatevote(question_id) {
