@@ -5,6 +5,18 @@
 		<h3>{{passcode}}</h3>
 	</div>
 	<div id="adminquestions">
+		<div id="specQuestions">
+		{{#if getAllQuestions}}
+		<ul>
+			{{#each getAllQuestions}}
+				<li class="{{_id}}">
+					<p class="question">{{question}}</p>
+					<p class="votes">{{upvotes}}</p>
+				</li>
+			{{/each}}
+		</ul>
+		{{/if}}
+	</div>
 	</div>
 	<div id="endevent">
 		<p> End Event </p>

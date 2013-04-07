@@ -44,10 +44,9 @@ if (Meteor.isClient) {
 			return false;
 		}
 	};
-	Template.join.getAllEvents = function() {
-		return Events.find({}, {fields: {"passcode":0, "eventemail":0}}, {limit: 100});
-	};
 
+
+//HOME JS
 	Template.home.events({
 		'click li': function (event){
 			var li_id = event.currentTarget.className;
@@ -55,6 +54,8 @@ if (Meteor.isClient) {
 		}
 	});
 
+
+//CREATEJS
 	Template.create.events({
 		'click img': function (event){
 			var img_id = event.currentTarget.className;
@@ -70,6 +71,8 @@ if (Meteor.isClient) {
 		}
 	});
 
+
+//ADMIN JS
 	Template.admin.eventname = function (){
 		if(Session.get("admin")){
 			eventObject = Events.findOne({"_id": Session.get("event")});
@@ -77,9 +80,44 @@ if (Meteor.isClient) {
 		}
 	};
 
+	Template.admin.getAllQuestions = function (){
+		return Questions.find({"eventId": Session.get("event")},{sort: {upvotes: -1}});
+	};
+	Template.admin.events({
+		'click img': function (event){
+			var img_id = event.currentTarget.className;
+			//send email with all questions
+			//change 
+			if(img_id=="endEvent"){
+				Session.set("admin", false);
+				Session.set("page", "home");
+			}
+		}
+	});
+
+
+//JOIN JS
+	Template.join.getAllEvents = function() {
+		return Events.find({}, {fields: {"passcode":0, "eventemail":0}}, {limit: 100});
+	};
+
+	Template.join.events({
+		'click li': function (event){
+			var li_id = event.currentTarget.className;
+			Session.set("page","spec");
+			Session.set("event", li_id);
+		}
+	});
+
+
+//SPEC JS
 	Template.spec.eventname = function (){
 		eventObject = Events.findOne({"_id": Session.get("event")});
 		return eventObject.name;
+	};
+
+	Template.spec.getAllQuestions = function (){
+		return Questions.find({"eventId": Session.get("event")},{sort: {upvotes: -1}});
 	};
 
 	Template.spec.events({
@@ -102,32 +140,10 @@ if (Meteor.isClient) {
 			updatevote(question_id);
 		}
 	});
-
-	Template.spec.getAllQuestions = function (){
-		return Questions.find({"eventId": Session.get("event")},{sort: {upvotes: -1}});
-	};
-
-	Template.admin.events({
-		'click img': function (event){
-			var img_id = event.currentTarget.className;
-			//send email with all questions
-			//change 
-			if(img_id=="endEvent"){
-				Session.set("admin", false);
-				Session.set("page", "home");
-			}
-		}
-	});
-
-	Template.join.events({
-		'click li': function (event){
-			var li_id = event.currentTarget.className;
-			Session.set("page","spec");
-			Session.set("event", li_id);
-		}
-	});
 }
 
+
+//HELPER FUNCTIONS
 function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 	var code = Math.floor(Math.random()*90000) + 10000;
 	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail, passcode: code});
