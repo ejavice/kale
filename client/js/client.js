@@ -135,31 +135,31 @@ if (Meteor.isClient) {
 	};
 
 	Template.join.events({
-
-		'click li': function (event){
-		var img_id = event.currentTarget.className;
+		'click img': function (event){
+			var img_id = event.currentTarget.className;
 			if (img_id == "backbutton") {
 				Session.set("page", "home");
 				Session.set("event", undefined);
-			} else {
-			var li_id = event.currentTarget.className;
-			Session.set("page","spec");
-			Session.set("event", li_id);
-		}
+			}
 		},
-		'touchstart li': function (event){
-		var img_id = event.currentTarget.className;
-		if (img_id == "backbutton") {
+		'touchstart img': function (event){
+			var img_id = event.currentTarget.className;
+			if (img_id == "backbutton") {
 				Session.set("page", "home");
 				Session.set("event", undefined);
-			} else {
+			}
+		},
+		'click li': function(event){
+			var li_id = event.currentTarget.className;
+			Session.set("page","spec");
+			Session.set("event", li_id);
+		},
+		'touchstart li': function(event){
 			var li_id = event.currentTarget.className;
 			Session.set("page","spec");
 			Session.set("event", li_id);
 		}
-		}		
 	});
-
 
 // SPEC JS
 	Template.spec.eventname = function (){
