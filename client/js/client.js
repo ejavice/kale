@@ -61,7 +61,7 @@ if (Meteor.isClient) {
 				Session.set("event", undefined);
 			}
 		},
-		'touchstart img': function (event){
+		'touchend img': function (event){
 			var img_id = event.currentTarget.className;
 			if (img_id == "backbutton") {
 				Session.set("page", "home");
@@ -79,7 +79,7 @@ if (Meteor.isClient) {
 				Session.set("page", "settings");
 			}
 		},
-		'touchstart img': function (event) {
+		'touchend img': function (event) {
 			var img_id = event.currentTarget.className;
 			if (img_id == "settings") {
 				Session.set("page", "settings");
@@ -89,7 +89,7 @@ if (Meteor.isClient) {
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
 		},
-		'touchstart li': function (event){
+		'touchend li': function (event){
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
 		}
@@ -110,7 +110,7 @@ if (Meteor.isClient) {
 				createEvent(eventname, eventlocation, eventspeaker, eventemail);
 			}
 		},
-		'touchstart img': function (event){
+		'touchend img': function (event){
 			var img_id = event.currentTarget.className;
 			if(img_id=="backbutton"){
 				Session.set("page","home");
@@ -146,7 +146,7 @@ if (Meteor.isClient) {
 				Session.set("page", "home");
 			}
 		},
-		'touchstart img': function (event){
+		'touchend img': function (event){
 			var img_id = event.currentTarget.className;
 			//send email with all questions
 			//change 
@@ -159,7 +159,7 @@ if (Meteor.isClient) {
 			var question_id = event.currentTarget.className;
 			makecurrent(question_id);
 		},
-		'touchstart li': function (event) {
+		'touchend li': function (event) {
 			var question_id = event.currentTarget.className;
 			makecurrent(question_id);
 		}
@@ -179,7 +179,7 @@ if (Meteor.isClient) {
 				Session.set("event", undefined);
 			}
 		},
-		'touchstart img': function (event){
+		'touchend img': function (event){
 			var img_id = event.currentTarget.className;
 			if (img_id == "backbutton") {
 				Session.set("page", "home");
@@ -191,7 +191,7 @@ if (Meteor.isClient) {
 			Session.set("page","spec");
 			Session.set("event", li_id);
 		},
-		'touchstart li': function(event){
+		'touchend li': function(event){
 			var li_id = event.currentTarget.className;
 			Session.set("page","spec");
 			Session.set("event", li_id);
@@ -222,7 +222,7 @@ if (Meteor.isClient) {
 				//else error message
 			}
 		},
-		'touchstart img': function (event){
+		'touchend img': function (event){
 			var img_id = event.currentTarget.className;
 			if(img_id=="backbutton"){
 				Session.set("page", "join");
@@ -239,7 +239,7 @@ if (Meteor.isClient) {
 			var question_id = event.currentTarget.className;
 			updatevote(question_id);
 		},
-		'touchstart li': function (event){
+		'touchend li': function (event){
 			var question_id = event.currentTarget.className;
 			updatevote(question_id);
 		}
@@ -252,7 +252,7 @@ if (Meteor.isClient) {
 				Session.set("page", "home");
 			}
 		},
-		'touchstart img': function (event){
+		'touchend img': function (event){
 			var img_id = event.currentTarget.className;
 			if(img_id=="backbutton"){
 				Session.set("page", "home");
