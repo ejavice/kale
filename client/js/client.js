@@ -46,7 +46,7 @@ if (Meteor.isClient) {
 	};
 	Template.join.getAllEvents = function() {
 		return Events.find({}, {fields: {"passcode":0, "eventemail":0}}, {limit: 100});
-	}
+	};
 
 	Template.home.events({
 		'click li': function (event){
@@ -77,17 +77,35 @@ if (Meteor.isClient) {
 		}
 	};
 
-	Template.admin.passcode = function (){
-		if(Session.get("admin")){
-			eventObject = Events.findOne({"_id": Session.get("event")});
-			return eventObject.passcode;
-		}
-	};
-
-	Template.spec.name = function (){
+	Template.spec.eventname = function (){
 		eventObject = Events.findOne({"_id": Session.get("event")});
 		return eventObject.name;
-	}
+	};
+
+	Template.spec.events({
+		'click img': function (event){
+			var img_id = event.currentTarget.className;
+			if(img_id=="backbutton"){
+				Session.set("page", "home");
+				Session.set("event", undefined);
+			}else if(img_id=="submitquestion"){
+				var question = document.getElementById("newquestion").value.trim();
+				if (question !=="" || question!==null){
+					submitquestion(question, Session.get("event"));
+				}
+				//else error message
+			}
+		},
+		'click li': function (event){
+			var question_id = event.currentTarget.className;
+			console.log(question_id);
+			updatevote(question_id);
+		}
+	});
+
+	Template.spec.getAllQuestions = function (){
+		return Questions.find({"eventId": Session.get("event")},{sort: {upvotes: -1}});
+	};
 
 	Template.admin.events({
 		'click img': function (event){
@@ -105,10 +123,11 @@ if (Meteor.isClient) {
 		'click li': function (event){
 			var li_id = event.currentTarget.className;
 			Session.set("page","spec");
-			Session.set("event", li_id)
+			Session.set("event", li_id);
 		}
 	});
 }
+
 function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 	var code = Math.floor(Math.random()*90000) + 10000;
 	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail, passcode: code});
@@ -118,3 +137,25 @@ function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 	Session.set("event", eventId);
 	Session.set("page", "admin");
 }
+
+function submitquestion(text, eventID){
+	Questions.insert({eventId: eventID, question: text, upvotes: 0, current: 0, asked: 0});
+	document.getElementById("newquestion").value = "";
+}
+
+function updatevote(question_id){
+	var upvotes = Questions.findOne({"_id": question_id});
+	upvotes = upvotes.upvotes;
+	upvotes = upvotes +1;
+	Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
+}
+
+
+
+
+	// Template.admin.passcode = function (){
+	// 	if(Session.get("admin")){
+	// 		eventObject = Events.findOne({"_id": Session.get("event")});
+	// 		return eventObject.passcode;
+	// 	}
+	// };
