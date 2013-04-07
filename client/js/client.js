@@ -228,12 +228,18 @@ function submitquestion(text, eventID){
 }
 
 function updatevote(question_id) {
-	if(Session.equals(question_id, undefined)){
-		var upvotes = Questions.findOne({"_id": question_id});
-		upvotes = upvotes.upvotes;
+	var upvotes = Questions.findOne({"_id": question_id});
+	upvotes = upvotes.upvotes;
+	if (Session.equals(question_id, undefined)) {
+		// TURN THE NUMBER GREEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		upvotes = upvotes + 1;
 		Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
 		Session.set(question_id, true);
+	} else {
+		// TURN THE NUMBER GRAY AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		upvotes = upvotes - 1;
+		Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
+		Session.set(question_id, undefined);
 	}
 }
 
