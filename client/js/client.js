@@ -159,7 +159,7 @@ function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 }
 
 function submitquestion(text, eventID){
-	Questions.insert({eventId: eventID, question: text, upvotes: 0, current: 0, asked: 0});
+	Questions.insert({eventId: eventID, question: text, upvotes: 0, current: 0});
 	document.getElementById("newquestion").value = "";
 }
 
@@ -171,6 +171,11 @@ function updatevote(question_id) {
 }
 
 function makecurrent(question_id) {
-	Questions.update({current:1},{$set: {current: 0}});
-	Questions.update({"_id":question_id},{$set: {current: 1}});
+	var previous = Questions.findOne({current: 1});
+	if(previous === undefined){
+		Questions.update({"_id":question_id},{$set: {current: 1}});
+	}else{
+		Questions.update({current:1},{$set: {current: 0}});
+		Questions.update({"_id":question_id},{$set: {current: 1}});
+	}
 }
