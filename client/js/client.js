@@ -81,7 +81,7 @@ if (Meteor.isClient) {
 	};
 
 	Template.admin.getAllQuestions = function (){
-		return Questions.find({"eventId": Session.get("event")},{sort: {upvotes: -1}});
+		return Questions.find({"eventId": Session.get("event")},{sort: {current: -1, upvotes: -1}});
 	};
 	Template.admin.events({
 		'click img': function (event){
@@ -95,7 +95,6 @@ if (Meteor.isClient) {
 		},
 		'click li': function (event) {
 			var question_id = event.currentTarget.className;
-			console.log(question_id);
 			makecurrent(question_id);
 		}
 	});
@@ -141,7 +140,6 @@ if (Meteor.isClient) {
 		},
 		'click li': function (event){
 			var question_id = event.currentTarget.className;
-			console.log(question_id);
 			updatevote(question_id);
 		}
 	});
@@ -174,8 +172,13 @@ function makecurrent(question_id) {
 	var previous = Questions.findOne({current: 1});
 	if(previous === undefined){
 		Questions.update({"_id":question_id},{$set: {current: 1}});
+		Session.set("current", question_id);
 	}else{
-		Questions.update({current:1},{$set: {current: 0}});
+		console.log(previous);
+		previous = previous._id;
+		console.log(previous);
+		Questions.update({"_id":previous},{$set: {current: -1}});
 		Questions.update({"_id":question_id},{$set: {current: 1}});
+		Session.set("current", question_id);
 	}
 }
