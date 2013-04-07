@@ -51,6 +51,10 @@ if (Meteor.isClient) {
 		'click li': function (event){
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
+		},
+		'touchmove li': function (event){
+			var li_id = event.currentTarget.className;
+			Session.set("page",""+li_id);
 		}
 	});
 
@@ -141,6 +145,15 @@ if (Meteor.isClient) {
 		'click li': function (event){
 			var question_id = event.currentTarget.className;
 			updatevote(question_id);
+		}
+	});
+
+	Template.about.events({
+		'click img': function (event){
+			var img_id = event.currentTarget.className;
+			if(img_id=="backbutton"){
+				Session.set("page", "home");
+			}
 		}
 	});
 }
