@@ -61,7 +61,7 @@
 				Session.set("event", undefined);
 			}
 		},
-		'touchend img': function (event){
+		'touchleave img': function (event){
 			var img_id = event.currentTarget.className;
 			if (img_id == "backbutton") {
 				Session.set("page", "home");
@@ -79,7 +79,7 @@
 				Session.set("page", "settings");
 			}
 		},
-		'touchend img': function (event) {
+		'touchleave img': function (event) {
 			var img_id = event.currentTarget.className;
 			if (img_id == "settings") {
 				Session.set("page", "settings");
@@ -89,7 +89,7 @@
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
 		},
-		'touchend li': function (event){
+		'touchleave li': function (event){
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
 		}
@@ -110,7 +110,7 @@
 				createEvent(eventname, eventlocation, eventspeaker, eventemail);
 			}
 		},
-		'touchend img': function (event){
+		'touchleave img': function (event){
 			var img_id = event.currentTarget.className;
 			if(img_id=="backbutton"){
 				Session.set("page","home");
@@ -151,7 +151,7 @@
 				removeevent(event_id);
 			}
 		},
-		'touchend img': function (event){
+		'touchleave img': function (event){
 			var img_id = event.currentTarget.className;
 			//send email with all questions
 			//change 
@@ -168,7 +168,7 @@
 			var question_id = event.currentTarget.className;
 			makecurrent(question_id);
 		},
-		'touchend li': function (event) {
+		'touchleave li': function (event) {
 			var question_id = event.currentTarget.className;
 			makecurrent(question_id);
 		}
@@ -188,7 +188,7 @@
 				Session.set("event", undefined);
 			}
 		},
-		'touchend img': function (event){
+		'touchleave img': function (event){
 			var img_id = event.currentTarget.className;
 			if (img_id == "backbutton") {
 				Session.set("page", "home");
@@ -200,7 +200,7 @@
 			Session.set("page","spec");
 			Session.set("event", li_id);
 		},
-		'touchend li': function(event){
+		'touchleave li': function(event){
 			var li_id = event.currentTarget.className;
 			Session.set("page","spec");
 			Session.set("event", li_id);
@@ -231,7 +231,7 @@
 				//else error message
 			}
 		},
-		'touchend img': function (event){
+		'touchleave img': function (event){
 			var img_id = event.currentTarget.className;
 			if(img_id=="backbutton"){
 				Session.set("page", "join");
@@ -248,7 +248,7 @@
 			var question_id = event.currentTarget.className;
 			updatevote(question_id);
 		},
-		'touchend li': function (event){
+		'touchleave li': function (event){
 			var question_id = event.currentTarget.className;
 			updatevote(question_id);
 		},
@@ -270,7 +270,7 @@
 				Session.set("page", "home");
 			}
 		},
-		'touchend img': function (event){
+		'touchleave img': function (event){
 			var img_id = event.currentTarget.className;
 			if(img_id=="backbutton"){
 				Session.set("page", "home");
