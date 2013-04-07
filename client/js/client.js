@@ -1,4 +1,4 @@
-if (Meteor.isClient) {
+ if (Meteor.isClient) {
 	if (Session.equals("page", undefined)) {
 		Session.set("page", "home");
 	}
@@ -136,6 +136,7 @@ if (Meteor.isClient) {
 	Template.admin.getAllQuestions = function (){
 		return Questions.find({"eventId": Session.get("event")},{sort: {current: -1, upvotes: -1}});
 	};
+
 	Template.admin.events({
 		'click img': function (event) {
 			var img_id = event.currentTarget.className;
@@ -269,7 +270,7 @@ if (Meteor.isClient) {
 		}
 	});
 
-	//highlight current
+//highlight current
 
 	Template.admin.rendered = function (){
 		$(document).ready(function (){
@@ -284,7 +285,7 @@ if (Meteor.isClient) {
 		});
 	};
 
-	Template.spec.rendered = function (){
+	Template.spec.created = function (){
 		$(document).ready(function (){
 			var current = Session.get("current");
 			if(current!==undefined ){
@@ -303,8 +304,7 @@ if (Meteor.isClient) {
 // HELPER FUNCTIONS
 function createEvent(eventname, eventlocation, eventspeaker, eventemail) {
 	//Console.log(eventname)
-	if (eventname.trim() !== "" && eventname !== null && eventlocation.trim() !== "" && eventlocation !== null
-		&& eventemail.trim() !== "" && eventemail !== null) {
+	if (eventname.trim() !== "" && eventname !== null && eventlocation.trim() !== "" && eventlocation !== null && eventemail.trim() !== "" && eventemail !== null) {
 		Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail});
 		var eventId = Events.findOne({"name": eventname});
 		eventId = eventId._id;
