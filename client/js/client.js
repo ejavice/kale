@@ -255,3 +255,7 @@ function makecurrent(question_id) {
 		Session.set("current", question_id);
 	}
 }
+
+function removequestion(question_id) {
+	Questions.remove({"_id":question_id});
+}
