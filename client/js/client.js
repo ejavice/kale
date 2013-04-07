@@ -242,6 +242,15 @@ if (Meteor.isClient) {
 		'touchend li': function (event){
 			var question_id = event.currentTarget.className;
 			updatevote(question_id);
+		},
+		'keypress': function(event) {
+			//Console.log(event);
+			if (event.which === 13) {
+				var question = document.getElementById("newquestion").value.trim();
+				if (question !=="" || question!==null){
+					submitquestion(question, Session.get("event"));
+				}
+			}
 		}
 	});
 
@@ -292,13 +301,17 @@ if (Meteor.isClient) {
 
 
 // HELPER FUNCTIONS
-function createEvent(eventname, eventlocation, eventspeaker, eventemail){
-	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail});
-	var eventId = Events.findOne({"name": eventname});
-	eventId = eventId._id;
-	Session.set("admin", true);
-	Session.set("event", eventId);
-	Session.set("page", "admin");
+function createEvent(eventname, eventlocation, eventspeaker, eventemail) {
+	//Console.log(eventname)
+	if (eventname.trim() !== "" && eventname !== null && eventlocation.trim() !== "" && eventlocation !== null
+		&& eventemail.trim() !== "" && eventemail !== null) {
+		Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail});
+		var eventId = Events.findOne({"name": eventname});
+		eventId = eventId._id;
+		Session.set("admin", true);
+		Session.set("event", eventId);
+		Session.set("page", "admin");
+	}
 }
 
 function submitquestion(text, eventID){
