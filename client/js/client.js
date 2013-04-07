@@ -259,7 +259,36 @@ if (Meteor.isClient) {
 			}
 		}
 	});
+
+	//highlight current
+
+	Template.admin.rendered = function (){
+		$(document).ready(function (){
+			var current = Session.get("current");
+			if(current!==undefined ){
+				$('.'+current).css({"background-color":"#009D20"});
+			}
+			var previous = Session.get("previous");
+			if(previous!==undefined ){
+				$('.'+previous).css({"background-color":"white"});
+			}
+		});
+	};
+
+	Template.spec.rendered = function (){
+		$(document).ready(function (){
+			var current = Session.get("current");
+			if(current!==undefined ){
+				$('.'+current).css({"background-color":"#009D20"});
+			}
+			var previous = Session.get("previous");
+			if(previous!==undefined ){
+				$('.'+previous).css({"background-color":"white"});
+			}
+		});
+	};
 }
+
 
 
 // HELPER FUNCTIONS
@@ -283,7 +312,6 @@ function updatevote(question_id) {
 	var upvotes = Questions.findOne({"_id": question_id});
 	upvotes = upvotes.upvotes;
 	if (Session.equals(question_id, undefined)) {
-		// TURN THE NUMBER GREEN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		upvotes = upvotes + 1;
 		Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
 		Session.set(question_id, true);
@@ -298,6 +326,7 @@ function makecurrent(question_id) {
 	}else{
 		previous = previous._id;
 		Questions.update({"_id":previous},{$set: {current: -1}});
+		Session.set("previous",previous);
 		Questions.update({"_id":question_id},{$set: {current: 1}});
 		Session.set("current", question_id);
 	}

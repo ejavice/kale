@@ -5,6 +5,14 @@
 	<meta name="description" content="Better Q&A for speaker lectures"/>
 	<meta name="keywords" content="keywords, for, search, engines">
 	<meta name="viewport" content="width=device-width, initial-scale=0.7">
+	<script type="text/javascript">
+		$(document).ready(function (){
+			var current = Session.get("current");
+			if(current!==undefined ){
+				$('.'+current).css({"background-color":"red"});
+			}
+		});
+	</script>
 </head>
 
 <body>
