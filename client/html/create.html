@@ -1,30 +1,25 @@
 <template name="create">
-	<div id="createContainer">
-		<div id="createHeader" class="header">
-			<h1>Create</h1>
-		</div>
-		<div id="createOptions">
-			<ul>
-				<li>
-					<p> name </p>
-					<input type="text" id="eventname"><br>
-				</li>
-				<li>
-					<p> location </p>
-					<input type="text" id="eventlocation"><br>
-				</li>
-				<li>
-					<p> speaker </p>
-					<input type="text" id="eventspeaker"><br>
-				</li>
-				<li>
-					<p> email </p>
-					<input type="text" id="eventemail"><br>
-				</li>
-				<li>
-					<img src="/img/favicon.ico" class="eventsubmit" alt="Back" height="20" width="20">
-				</li>
-			</ul>
-		</div>
+	<div id="createheader" class="header">
+		<img src="/img/favicon.ico" class="backbutton" alt="Back" height="20" width="20">
+		<h1>Create an Event</h1>
+	</div>
+	<div id="createOptions">
+		<ul>
+			<li class="createText">
+				<input type="text" id="eventname" placeholder="Name *"><br>
+			</li>
+			<li class="createText">
+				<input type="text" id="eventlocation" placeholder="Location *"><br>
+			</li>
+			<li class="createText">
+				<input type="text" id="eventspeaker" placeholder="Speaker"><br>
+			</li>
+			<li class="createText">
+				<input type="text" id="eventemail" placeholder="Email *"><br>
+			</li>
+			<li>
+				<img src="/img/favicon.ico" class="eventsubmit" alt="Back" height="20" width="20">
+			</li>
+		</ul>
 	</div>
 </template>

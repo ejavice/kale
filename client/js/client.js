@@ -85,5 +85,5 @@ function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 	eventId = eventId._id;
 	Session.set("admin", true);
 	Session.set("event", eventId);
-	Session.set("page", "admin");
+	Session.set("page", admin);
 }
