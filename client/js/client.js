@@ -162,10 +162,13 @@ function submitquestion(text, eventID){
 }
 
 function updatevote(question_id) {
-	var upvotes = Questions.findOne({"_id": question_id});
-	upvotes = upvotes.upvotes;
-	upvotes = upvotes + 1;
-	Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
+	if(Session.equals(question_id, undefined)){
+		var upvotes = Questions.findOne({"_id": question_id});
+		upvotes = upvotes.upvotes;
+		upvotes = upvotes + 1;
+		Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
+		Session.set(question_id, true);
+	}
 }
 
 function makecurrent(question_id) {
