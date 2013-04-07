@@ -92,6 +92,11 @@ if (Meteor.isClient) {
 				Session.set("admin", false);
 				Session.set("page", "home");
 			}
+		},
+		'click li': function (event) {
+			var question_id = event.currentTarget.className;
+			console.log(question_id);
+			makecurrent(question_id);
 		}
 	});
 
@@ -117,7 +122,7 @@ if (Meteor.isClient) {
 	};
 
 	Template.spec.getAllQuestions = function (){
-		return Questions.find({"eventId": Session.get("event")},{sort: {upvotes: -1}});
+		return Questions.find({"eventId": Session.get("event")},{sort: {current: -1, upvotes: -1}});
 	};
 
 	Template.spec.events({
@@ -143,7 +148,7 @@ if (Meteor.isClient) {
 }
 
 
-//HELPER FUNCTIONS
+// HELPER FUNCTIONS
 function createEvent(eventname, eventlocation, eventspeaker, eventemail){
 	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail});
 	var eventId = Events.findOne({"name": eventname});
@@ -158,9 +163,14 @@ function submitquestion(text, eventID){
 	document.getElementById("newquestion").value = "";
 }
 
-function updatevote(question_id){
+function updatevote(question_id) {
 	var upvotes = Questions.findOne({"_id": question_id});
 	upvotes = upvotes.upvotes;
-	upvotes = upvotes +1;
+	upvotes = upvotes + 1;
 	Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
+}
+
+function makecurrent(question_id) {
+	Questions.update({current:1},{$set: {current: 0}});
+	Questions.update({"_id":question_id},{$set: {current: 1}});
 }
