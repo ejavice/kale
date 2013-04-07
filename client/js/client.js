@@ -52,7 +52,7 @@ if (Meteor.isClient) {
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
 		},
-		'touchmove li': function (event){
+		'touchstart li': function (event){
 			var li_id = event.currentTarget.className;
 			Session.set("page",""+li_id);
 		}
