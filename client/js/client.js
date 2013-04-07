@@ -145,6 +145,9 @@
 			if (img_id == "endEvent") {
 				Session.set("admin", false);
 				Session.set("page", "home");
+				var event_id = Events.findOne({"_id": Session.get("event")});
+				event_id = event_id.event_id;
+				removeevent(event_id);
 			}
 		},
 		'touchend img': function (event){
@@ -154,6 +157,9 @@
 			if (img_id == "endEvent") {
 				Session.set("admin", false);
 				Session.set("page", "home");
+				var event_id = Events.findOne({"_id": Session.get("event")});
+				event_id = event_id.event_id;
+				removeevent(event_id);
 			}
 		},
 		'click li': function (event) {
@@ -345,6 +351,7 @@ function makecurrent(question_id) {
 	}
 }
 
-function removequestion(question_id) {
-	Questions.remove({"_id":question_id});
+function removeevent(event_id) {
+	Events.remove({"_id":event_id});
+	Questions.remove({"eventId":event_id});
 }
