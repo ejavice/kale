@@ -74,10 +74,16 @@ if (Meteor.isClient) {
 // HOME JS
 	Template.home.events({
 		'click img': function (event) {
-			Session.set("page", "settings");
+			var img_id = event.currentTarget.className;
+			if (img_id == "settings") {
+				Session.set("page", "settings");
+			}
 		},
 		'touchstart img': function (event) {
-			Session.set("page", "settings");
+			var img_id = event.currentTarget.className;
+			if (img_id == "settings") {
+				Session.set("page", "settings");
+			}
 		},
 		'click li': function (event){
 			var li_id = event.currentTarget.className;
@@ -281,11 +287,6 @@ function updatevote(question_id) {
 		upvotes = upvotes + 1;
 		Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
 		Session.set(question_id, true);
-	} else {
-		// TURN THE NUMBER GRAY AGAIN!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		upvotes = upvotes - 1;
-		Questions.update({"_id":question_id},{$set: {upvotes: upvotes}});
-		Session.set(question_id, undefined);
 	}
 }
 
