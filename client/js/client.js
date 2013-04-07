@@ -59,7 +59,7 @@ if (Meteor.isClient) {
 	});
 
 
-//CREATEJS
+// CREATE JS
 	Template.create.events({
 		'click img': function (event){
 			var img_id = event.currentTarget.className;
@@ -88,7 +88,7 @@ if (Meteor.isClient) {
 	});
 
 
-//ADMIN JS
+// ADMIN JS
 	Template.admin.eventname = function (){
 		if(Session.get("admin")){
 			eventObject = Events.findOne({"_id": Session.get("event")});
@@ -100,11 +100,11 @@ if (Meteor.isClient) {
 		return Questions.find({"eventId": Session.get("event")},{sort: {current: -1, upvotes: -1}});
 	};
 	Template.admin.events({
-		'click img': function (event){
+		'click img': function (event) {
 			var img_id = event.currentTarget.className;
 			//send email with all questions
 			//change 
-			if(img_id=="endEvent"){
+			if (img_id == "endEvent") {
 				Session.set("admin", false);
 				Session.set("page", "home");
 			}
@@ -113,7 +113,7 @@ if (Meteor.isClient) {
 			var img_id = event.currentTarget.className;
 			//send email with all questions
 			//change 
-			if(img_id=="endEvent"){
+			if (img_id == "endEvent") {
 				Session.set("admin", false);
 				Session.set("page", "home");
 			}
@@ -129,26 +129,39 @@ if (Meteor.isClient) {
 	});
 
 
-//JOIN JS
+// JOIN JS
 	Template.join.getAllEvents = function() {
 		return Events.find({}, {fields: {"eventemail":0}}, {limit: 100});
 	};
 
 	Template.join.events({
+
 		'click li': function (event){
+		var img_id = event.currentTarget.className;
+			if (img_id == "backbutton") {
+				Session.set("page", "home");
+				Session.set("event", undefined);
+			} else {
 			var li_id = event.currentTarget.className;
 			Session.set("page","spec");
 			Session.set("event", li_id);
+		}
 		},
 		'touchstart li': function (event){
+		var img_id = event.currentTarget.className;
+		if (img_id == "backbutton") {
+				Session.set("page", "home");
+				Session.set("event", undefined);
+			} else {
 			var li_id = event.currentTarget.className;
 			Session.set("page","spec");
 			Session.set("event", li_id);
+		}
 		}		
 	});
 
 
-//SPEC JS
+// SPEC JS
 	Template.spec.eventname = function (){
 		eventObject = Events.findOne({"_id": Session.get("event")});
 		return eventObject.name;
@@ -161,10 +174,10 @@ if (Meteor.isClient) {
 	Template.spec.events({
 		'click img': function (event){
 			var img_id = event.currentTarget.className;
-			if(img_id=="backbutton"){
+			if (img_id == "backbutton") {
 				Session.set("page", "home");
 				Session.set("event", undefined);
-			}else if(img_id=="submitquestion"){
+			} else if(img_id=="submitquestion"){
 				var question = document.getElementById("newquestion").value.trim();
 				if (question !=="" || question!==null){
 					submitquestion(question, Session.get("event"));
