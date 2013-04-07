@@ -55,26 +55,35 @@ if (Meteor.isClient) {
 	Template.create.events({
 		'click img': function (event){
 			var img_id = event.currentTarget.className;
+			console.log(img_id);
 			if(img_id=="back"){
 				Session.set("page","home");
-			}else if(img_id=="submit"){
+			}else if(img_id=="eventsubmit"){
 				var eventname = document.getElementById("eventname").value.trim();
 				var eventlocation = document.getElementById("eventlocation").value.trim();
 				var eventspeaker = document.getElementById("eventspeaker").value.trim();
 				var eventemail = document.getElementById("eventemail").value.trim();
-				if(validateevent(eventname, eventemail)){
-					createEvent(eventname, eventlocation, eventspeaker, eventemail);
-				}else{
-					console.log("Invalid Event");
-				}
+				//ERROR HANDLING!!!
+				createEvent(eventname, eventlocation, eventspeaker, eventemail);
+				// if(validateevent(eventname, eventemail)){
+				// 	createEvent(eventname, eventlocation, eventspeaker, eventemail);
+				// }else{
+				// 	console.log("Invalid Event");
+				// }
 			}
 		}
 	});
 }
-function validateevent(eventname, eventemail){
-	return true;
-}
+// function validateevent(eventname, eventemail){
+// 	return true;
+// }
 
 function createEvent(eventname, eventlocation, eventspeaker, eventemail){
-	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail});
+	var code = Math.floor(Math.random()*90000) + 10000;
+	Events.insert({name: eventname, location: eventlocation, speaker: eventspeaker, email: eventemail, passcode: code});
+	var eventId = Events.findOne({"name": eventname});
+	eventId = eventId._id;
+	Session.set("admin", true);
+	Session.set("event", eventId);
+	Session.set("page", "admin");
 }
